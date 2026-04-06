@@ -1,0 +1,12 @@
+Fri Apr  3 13:25:56 UTC 2026 - Script Executed Successfully 
+Invalid Action 
+Fri Apr  3 16:04:37 UTC 2026- Invalid Action 
+Fri Apr  3 16:55:25 UTC 2026- Invalid Action 
+Fri Apr  3 17:03:19 UTC 2026-ERROR: No username provided for creating user
+Fri Apr  3 17:10:27 UTC 2026-ERROR: Username creation unsuccessful: Shogun
+Fri Apr  3 17:13:34 UTC 2026- Username Deleted successfully: Shogun
+Sat Apr  4 06:11:45 UTC 2026-ERROR: Group 'ubuntu' already exists 
+Sat Apr  4 06:12:05 UTC 2026-ERROR: Group 'ubuntu' already exists 
+Sat Apr  4 07:53:05 UTC 2026- Username Created successfully: Parth
+Sat Apr  4 07:53:16 UTC 2026-ERROR: User Part does not exist.
+Sat Apr  4 07:53:22 UTC 2026- Username Deleted successfully: Parth
