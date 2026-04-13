@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+export DEBIAN_FRONTEND=noninteractive
 
 install_docker(){
 
@@ -9,13 +10,15 @@ install_docker(){
 
     echo "Updating system..."
     sudo apt update
-    sudo apt install -y ca-certificates curl gnupg
+    sudo apt install -y ca-certificates curl gnupg git
 
     echo "Creating keyring..."
     sudo install -m 0755 -d /etc/apt/keyrings
 
+    sudo rm -f /etc/apt/keyrings/docker.gpg
+
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-    sudo gpg --yes --dearmor -o /etc/apt/keyrings/docker.gpg
+        sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/docker.gpg
 
     sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
@@ -31,27 +34,27 @@ $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
     echo "Enabling Docker..."
     sudo systemctl enable docker
     sudo systemctl start docker
-    sudo usermod -aG docker ubuntu
-    newgrp docker || true
 
-    
+    echo "Adding user to docker group..."
+    sudo usermod -aG docker ubuntu
 }
 
 deploy_project(){
-	if [ -d "Lost-and-Found-Platform-V2" ]; then
-        	echo "Repo exists → pulling latest changes"
-        	cd Lost-and-Found-Platform-V2
-        	git pull
-    	else
-        	git clone https://github.com/Parth2496Singh/Lost-and-Found-Platform-V2.git
-        	cd Lost-and-Found-Platform-V2
-   	fi
-	mkdir -p static
-	docker compose up -d
-}
-if ! install_docker; then
-	echo "Docker not installed properly"
-	exit 1
-fi
 
+    if [ -d "Lost-and-Found-Platform-V2" ]; then
+        echo "Repo exists → pulling latest changes"
+        cd Lost-and-Found-Platform-V2
+        git pull
+    else
+        git clone https://github.com/Parth2496Singh/Lost-and-Found-Platform-V2.git
+        cd Lost-and-Found-Platform-V2
+    fi
+
+    mkdir -p static
+
+    echo "Starting containers..."
+    sudo docker compose up -d
+}
+
+install_docker
 deploy_project
