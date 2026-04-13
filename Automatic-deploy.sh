@@ -15,7 +15,7 @@ install_docker(){
     sudo install -m 0755 -d /etc/apt/keyrings
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    sudo gpg--yes --dearmor -o /etc/apt/keyrings/docker.gpg
 
     sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
@@ -31,7 +31,8 @@ $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
     echo "Enabling Docker..."
     sudo systemctl enable docker
     sudo systemctl start docker
-    sudo usermod -aG docker $USER
+    sudo usermod -aG docker ubuntu
+    newgrp docker || true
 
     
 }
