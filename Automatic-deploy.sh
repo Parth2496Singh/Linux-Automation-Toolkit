@@ -31,6 +31,7 @@ $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
     echo "Enabling Docker..."
     sudo systemctl enable docker
     sudo systemctl start docker
+    sudo usermod -aG docker $USER
 
     
 }
